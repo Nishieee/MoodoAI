@@ -1,70 +1,161 @@
-# Getting Started with Create React App
+# MoodoAI: Mood Journaling App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MoodoAI is a mood journaling application that allows users to track their emotions, reflect on their feelings, and receive supportive, dynamic responses. The project utilizes **Streamlit** for the frontend, **FastAPI** for the backend, and integrates **OpenAI GPT-3.5** for generating mood-specific responses.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Project Structure
 
-### `npm start`
+```plaintext
+MOODOAI/
+├── .github/                     # GitHub-specific files (e.g., workflows)
+├── fast_api/                    # Backend folder
+│   ├── __pycache__/             # Cached files
+│   ├── __init__.py              # Backend package initializer
+│   ├── .env                     # Backend environment variables
+│   ├── Dockerfile               # Backend Dockerfile
+│   ├── main.py                  # FastAPI entry point
+│   └── requirements.txt         # Backend dependencies
+├── Streamlit/                   # Frontend folder
+│   ├── __pycache__/             # Cached files
+│   ├── __init__.py              # Frontend package initializer
+│   ├── app.py                   # Main Streamlit app
+│   ├── login_page.py            # Login page implementation
+│   ├── signup_page.py           # Signup page implementation
+│   ├── motivate_page.py         # Mood selection and AI response
+│   ├── journal_entry_page.py    # Journal entry page
+│   ├── past_entries.py          # View past journal entries
+│   ├── welcome_page.py          # Welcome page implementation
+│   ├── hriday_journal_entries.txt  # Mock journal data
+│   ├── Dockerfile               # Frontend Dockerfile
+│   ├── docker-compose.yml       # Docker Compose configuration
+│   └── requirements.txt         # Frontend dependencies
+├── .env                         # Project-level environment variables
+└── README.md                    # Project documentation
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+### Frontend (Streamlit)
+1. **Welcome Page**: Provides an overview of the app and its features.
+2. **Login and Signup**: Secure user authentication with username-password flow.
+3. **Mood Selection**: Allows users to select their current mood using emojis and receive AI-generated responses.
+4. **Journal Entry**: Enables users to reflect and add entries about their day.
+5. **Past Entries**: Allows users to view and review previously saved journal entries.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Backend (FastAPI)
+1. **User Management**: Handles signup, login, and password hashing.
+2. **Mood Responses**: Accepts user moods, generates personalized responses using OpenAI, and stores them in the database.
+3. **Journal Data**: Manages storing and retrieving journal entries.
+4. **Database Integration**: Uses Snowflake for storing user data, mood responses, and timestamps.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Setup and Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
+- Python 3.8 or higher
+- Docker (optional, for containerized deployment)
+- An OpenAI API key
+- Snowflake account and credentials
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Steps
 
-### `npm run eject`
+#### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/moodoai.git
+cd moodoai
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### 2. Set Up Virtual Environment
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### 3. Install Dependencies
+Install dependencies for both backend and frontend:
+```bash
+pip install -r fast_api/requirements.txt
+pip install -r Streamlit/requirements.txt
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### 4. Configure Environment Variables
+Create `.env` files in both the `fast_api` and `Streamlit` directories.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **FastAPI `.env`**:
+  ```plaintext
+  SNOWFLAKE_USER=<your-snowflake-username>
+  SNOWFLAKE_PASSWORD=<your-snowflake-password>
+  SNOWFLAKE_ACCOUNT=<your-snowflake-account-id>
+  SNOWFLAKE_DATABASE=nosu
+  SNOWFLAKE_SCHEMA=PUBLIC
+  SNOWFLAKE_WAREHOUSE=COMPUTE_WH
+  OPENAI_API_KEY=<your-openai-api-key>
+  ```
 
-## Learn More
+- **Streamlit `.env`**:
+  ```plaintext
+  FASTAPI_URL=http://127.0.0.1:8000
+  ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 5. Run the Backend (FastAPI)
+Navigate to the `fast_api` folder and run the FastAPI server:
+```bash
+uvicorn main:app --reload
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 6. Run the Frontend (Streamlit)
+Navigate to the `Streamlit` folder and start the Streamlit app:
+```bash
+streamlit run app.py
+```
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Usage
+1. Open the Streamlit app in your browser.
+2. Sign up or log in to your account.
+3. Select your current mood from the emojis on the **Motivate Page**.
+4. View the personalized AI response.
+5. Add journal entries or view past entries as needed.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Deployment
 
-### Making a Progressive Web App
+### Using Docker
+1. Build the Docker images for both frontend and backend:
+   ```bash
+   docker-compose build
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. Start the services:
+   ```bash
+   docker-compose up
+   ```
 
-### Advanced Configuration
+3. Access the app at `http://localhost:8501`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Technologies Used
+- **Frontend**: Streamlit
+- **Backend**: FastAPI
+- **Database**: Snowflake
+- **AI**: OpenAI GPT-3.5
+- **Authentication**: Passlib (BCrypt for password hashing)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## Contributing
+If you'd like to contribute, please fork the repository and submit a pull request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## License
+This project is licensed under the MIT License.
+```
+
