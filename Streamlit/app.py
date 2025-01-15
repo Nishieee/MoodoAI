@@ -77,18 +77,7 @@ if st.session_state.page == "Welcome":
 elif st.session_state.page == "Sign Up":
     sign_up()
 elif st.session_state.page == "Login":
-    # Simulated login logic for demonstration
-    st.title("🔑 Login")
-    username = st.text_input("👤 Username", placeholder="Enter your username")
-    password = st.text_input("🔒 Password", placeholder="Enter your password", type="password")
-    if st.button("Login"):
-        if username and password:  # Replace with your actual validation logic
-            st.session_state.logged_in = True
-            st.session_state.username = username  # Store the username in session state
-            st.session_state.page = "Motivate"
-            st.success(f"Welcome, {username}!")
-        else:
-            st.error("Invalid username or password. Please try again.")
+    login()
 elif st.session_state.page == "Motivate":
     if st.session_state.username:
         mood_selection_page(username=st.session_state.username)
@@ -104,4 +93,3 @@ elif st.session_state.page == "View Entries":
         view_past_entries_page(username=st.session_state.username)  # New page for viewing entries
     else:
         st.error("You need to log in to view your journal entries.")
-
