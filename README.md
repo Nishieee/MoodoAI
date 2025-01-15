@@ -1,12 +1,13 @@
 # MoodoAI: Mood Journaling App
 
 MoodoAI is a mood journaling application that allows users to track their emotions, reflect on their feelings, and receive supportive, dynamic responses. The project utilizes **Streamlit** for the frontend, **FastAPI** for the backend, and integrates **OpenAI GPT-3.5** for generating mood-specific responses.
----
+
+
 ## Architecture Overview
 
 Below is the architecture diagram showcasing the structure and interaction between the frontend, backend, database, and AI services:
 
-![Architecture Diagram](./arch_diagram.png)
+![Architecture Diagram](./arch.png)
 
 ---
 
