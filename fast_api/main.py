@@ -17,7 +17,10 @@ import asyncio
 import os
 import aiohttp
 import aiofiles
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
 
 # FastAPI app
@@ -35,15 +38,17 @@ app.add_middleware(
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-openai.api_key = "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"
 
-# Snowflake connection details (update with your credentials)
-SNOWFLAKE_USER="Nishita"
-SNOWFLAKE_PASSWORD="Nishita@123"
-SNOWFLAKE_ACCOUNT="kv29280.us-east-2.aws"
-SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
-SNOWFLAKE_DATABASE="nosu"
-SNOWFLAKE_SCHEMA="PUBLIC"
+# Set up OpenAI API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Snowflake connection details from .env
+SNOWFLAKE_USER = os.getenv("SNOWFLAKE_USER")
+SNOWFLAKE_PASSWORD = os.getenv("SNOWFLAKE_PASSWORD")
+SNOWFLAKE_ACCOUNT = os.getenv("SNOWFLAKE_ACCOUNT")
+SNOWFLAKE_WAREHOUSE = os.getenv("SNOWFLAKE_WAREHOUSE")
+SNOWFLAKE_DATABASE = os.getenv("SNOWFLAKE_DATABASE")
+SNOWFLAKE_SCHEMA = os.getenv("SNOWFLAKE_SCHEMA")
 
 def get_snowflake_connection():
     return snowflake.connector.connect(
