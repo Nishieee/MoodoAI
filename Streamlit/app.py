@@ -12,8 +12,9 @@ load_dotenv()
 
 FASTAPI_URL = os.getenv("FASTAPI_URL")
 
+
 # Set the page configuration ONCE at the top of app.py
-st.set_page_config(page_title="AI Planner", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="AI Journaling - MoodoAI", page_icon="🤖", layout="wide")
 
 # Initialize session state variables
 if "page" not in st.session_state:
